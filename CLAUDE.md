@@ -28,3 +28,14 @@ arduino-cli upload -p /dev/cu.usbmodem101 --fqbn m5stack:esp32:m5stack_cores3 sk
 
 - スケッチは `sketches/<スケッチ名>/<スケッチ名>.ino` の形で置く（Arduinoの規約でフォルダ名とファイル名を揃える）
 - ライブラリ `M5StackChan` の公式サンプル: `~/Documents/Arduino/libraries/M5StackChan/examples/`（RGB_LED、Servo/BasicMovement・Dance・HomeCalibration、TouchSensor、IR、NFC、INA226）
+
+## 起点ファームと音声
+
+- デモの起点は `sketches/stackchan_base`（顔: M5Stack_Avatarライブラリ、首: `M5StackChan.Motion`、声: 埋め込みWAV）
+- 首の角度は 10 = 1度。Yaw -1280〜1280、Pitch は 50〜850 に収める
+- 表情は `Expression::Happy / Angry / Sad / Doubt / Sleepy / Neutral`
+- セリフを変える・増やすときは、音声ヘッダを生成してから `#include` して `speak()` で再生する:
+
+```bash
+python3 tools/make_voice.py sketches/stackchan_base voice_xxx "セリフ"
+```
