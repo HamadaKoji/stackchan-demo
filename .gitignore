@@ -1,0 +1,15 @@
+# secrets
+secrets.h
+.env
+*.env
+
+# build outputs
+build/
+.pio/
+*.bin
+*.elf
+*.map
+
+# editor / OS
+.vscode/
+.DS_Store
