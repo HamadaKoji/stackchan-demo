@@ -30,3 +30,13 @@ arduino-cli lib install M5StackChan
 
 - 自作ファームを書き込むと工場ファームは上書きされる。戻すときはM5Burnerで公式StackChanファームを書き戻す
 - APIキー等の秘密情報はコミットしない（`secrets.h` / `.env` はgitignore済み）
+
+## リハーサル
+
+試走のたびに起点へ戻す（作業ツリーの変更は破棄される）:
+
+```bash
+tools/reset_demo.sh
+```
+
+起点はタグ `demo-start`。起点ファームを更新したらタグを打ち直す（`git tag -f demo-start`）。
