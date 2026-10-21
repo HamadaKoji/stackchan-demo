@@ -11,7 +11,20 @@ M5Stack StackChanを、Claude CodeでVibe Codingして光らせ・喋らせ・�
 
 ## ビルド環境
 
-（Step 2で確定する。公式手順はArduino IDE: ボード M5CoreS3、ライブラリ M5StackChan）
+- arduino-cli 1.5.1（Homebrew）
+- ボードパッケージ: `m5stack:esp32` 3.3.10（追加URL: https://static-cdn.m5stack.com/resource/arduino/package_m5stack_index.json）
+- ボード: M5CoreS3（FQBN `m5stack:esp32:m5stack_cores3`）
+- ライブラリ: M5StackChan 1.1.1（依存: M5Unified、IRremoteESP8266、M5Unit-NFC）
+
+```bash
+brew install arduino-cli
+arduino-cli config init
+arduino-cli config add board_manager.additional_urls https://static-cdn.m5stack.com/resource/arduino/package_m5stack_index.json
+arduino-cli core update-index && arduino-cli core install m5stack:esp32
+arduino-cli lib install M5StackChan
+```
+
+ビルド・書き込みコマンドは `CLAUDE.md` を参照。
 
 ## 注意
 

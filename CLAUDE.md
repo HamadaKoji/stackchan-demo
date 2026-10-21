@@ -18,4 +18,13 @@
 
 ## ビルド・書き込みコマンド
 
-（Step 2で確定したら追記する）
+```bash
+# ビルド（初回は約40秒、2回目以降は約10秒）
+arduino-cli compile --fqbn m5stack:esp32:m5stack_cores3 sketches/<スケッチ名>
+
+# 書き込み（約9秒）。ポートは arduino-cli board list で確認（通常 /dev/cu.usbmodem101）
+arduino-cli upload -p /dev/cu.usbmodem101 --fqbn m5stack:esp32:m5stack_cores3 sketches/<スケッチ名>
+```
+
+- スケッチは `sketches/<スケッチ名>/<スケッチ名>.ino` の形で置く（Arduinoの規約でフォルダ名とファイル名を揃える）
+- ライブラリ `M5StackChan` の公式サンプル: `~/Documents/Arduino/libraries/M5StackChan/examples/`（RGB_LED、Servo/BasicMovement・Dance・HomeCalibration、TouchSensor、IR、NFC、INA226）
