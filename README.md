@@ -40,3 +40,10 @@ tools/reset_demo.sh
 ```
 
 起点はタグ `demo-start`。起点ファームを更新したらタグを打ち直す（`git tag -f demo-start`）。
+
+## ライセンス
+
+[MIT License](LICENSE)
+
+- `sketches/RGB_LED/` はM5Stack公式のサンプル（M5StackChanライブラリ同梱、MIT License）をそのまま使っている
+- 依存ライブラリ（M5StackChan、M5Stack_Avatar など）はそれぞれのライセンスに従う
