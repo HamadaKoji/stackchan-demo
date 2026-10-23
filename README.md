@@ -47,3 +47,20 @@ tools/reset_demo.sh
 
 - `sketches/RGB_LED/` はM5Stack公式のサンプル（M5StackChanライブラリ同梱、MIT License）をそのまま使っている
 - 依存ライブラリ（M5StackChan、M5Stack_Avatar など）はそれぞれのライセンスに従う
+
+## 活用デモ: HTTPでStackChanを動かす（`sketches/stackchan_web`）
+
+Wi-Fiにつないで小さなHTTPサーバーを立てる。Webhookや監視アラートの「物理的な出口」のイメージ。
+
+1. `sketches/stackchan_web/secrets.h.example` を `secrets.h` にコピーして、Wi-Fi（2.4GHz）のSSIDとパスワードを書く
+2. ビルドして書き込む（コマンドは `CLAUDE.md` と同じで、スケッチ名を `stackchan_web` にする）
+3. 起動するとWi-Fiにつなぎ、IPアドレスを吹き出しに表示する
+
+```bash
+curl http://stackchan.local/alert                # 首を振って赤く光り「アラートだよ！」
+curl http://stackchan.local/ok                   # 虹色に光って「解決したよ」
+curl "http://stackchan.local/say?text=こんにちは"  # 吹き出しに好きな文字を表示
+```
+
+- `stackchan.local` で届かないネットワークでは、吹き出しに出たIPアドレスを使う
+- 会場Wi-Fiなどで端末同士が通信できない場合は、スマホのテザリングにMacとStackChanの両方をつなぐ
