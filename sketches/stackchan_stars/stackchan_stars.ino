@@ -20,6 +20,9 @@ Avatar avatar;
 constexpr const char* kRepoApi = "https://api.github.com/repos/HamadaKoji/stackchan-demo";
 
 // 未認証のGitHub APIは1時間60回まで（IPアドレスごと）。トークンがあれば1時間5000回
+#if !defined(GITHUB_TOKEN) && defined(GITHUB_PAT)
+#define GITHUB_TOKEN GITHUB_PAT
+#endif
 #ifndef GITHUB_TOKEN
 #define GITHUB_TOKEN ""
 #endif
