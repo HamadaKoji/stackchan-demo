@@ -47,3 +47,15 @@ tools/reset_demo.sh
 
 - `sketches/RGB_LED/` はM5Stack公式のサンプル（M5StackChanライブラリ同梱、MIT License）をそのまま使っている
 - 依存ライブラリ（M5StackChan、M5Stack_Avatar など）はそれぞれのライセンスに従う
+
+## 活用デモ: GitHubのスターで喜ぶ（`sketches/stackchan_stars`）
+
+GitHub APIでこのリポジトリのスター数を定期的に確認し、増えたら虹色に光って踊り「スターありがとう！」と喋る。
+
+1. `sketches/stackchan_stars/secrets.h.example` を `secrets.h` にコピーして、Wi-Fi（2.4GHz）の情報を書く
+   - 任意で `GITHUB_TOKEN` を入れる（権限なしのfine-grained tokenで十分）。未認証だと1時間60回までなので75秒ごと、トークンありなら15秒ごとに確認する
+2. ビルドして書き込む（スケッチ名を `stackchan_stars` にする）
+3. 起動するとスター数を吹き出しに表示する。頭をスワイプすると今すぐ確認する
+
+- GitHub APIの応答は最大60秒ほどキャッシュされるので、スターを付けてから反応までは数十秒〜1分強かかる
+- 証明書の検証は省略している（公開情報を読むだけのデモのため）
