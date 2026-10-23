@@ -62,5 +62,6 @@ curl http://stackchan.local/ok                   # 虹色に光って「解決�
 curl "http://stackchan.local/say?text=こんにちは"  # 吹き出しに好きな文字を表示
 ```
 
+- Macの `curl` で `stackchan.local` が応答しないときは `-4` を付ける（IPv6を先に試して待たされるため）: `curl -4 http://stackchan.local/alert`
 - `stackchan.local` で届かないネットワークでは、吹き出しに出たIPアドレスを使う
 - 会場Wi-Fiなどで端末同士が通信できない場合は、スマホのテザリングにMacとStackChanの両方をつなぐ
