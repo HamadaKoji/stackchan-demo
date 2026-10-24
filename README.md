@@ -140,7 +140,17 @@ stackchan-demo/
 ```
 
 - 秘密情報（Wi-Fiのパスワード、トークン）は各スケッチの `secrets.h` に置く。`.gitignore` 済みでコミットされない
-- `trial/` で始まるブランチは、リハーサルで実際にClaude Codeに頼んで作った結果の記録
+- リハーサルで実際にClaude Codeに頼んで作った結果は、タグで残している（起点からの差分が「AIが書いたもの」）
+
+| タグ | 中身 |
+|---|---|
+| `rehearsal/20261022` | 試走の結果: セリフと表情の変更、撫でたら考えて答える、1から10まで数えて3の倍数でアホになる |
+| `rehearsal/20261024` | リハーサルの結果: テンション高めの挨拶「みなさん、DevelopersIOへようこそ！！」 |
+
+```bash
+git diff demo-start rehearsal/20261024 -- sketches/stackchan_base   # AIが何を変えたかを見る
+git switch --detach rehearsal/20261024 && tools/flash.sh stackchan_base   # その状態を書き込んで動かす
+```
 
 ## ライセンス
 
