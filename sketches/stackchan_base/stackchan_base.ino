@@ -5,6 +5,7 @@
 #include <Avatar.h>
 
 #include "voice_hello.h"
+#include "voice_welcome.h"
 
 using namespace m5avatar;
 
@@ -26,28 +27,62 @@ void speak(const uint8_t* wav, size_t len, const char* text)
     avatar.setSpeechText("");
 }
 
+void setLeds(uint8_t r, uint8_t g, uint8_t b)
+{
+    for (int i = 0; i < 12; i++) M5StackChan.setRgbColor(i, r, g, b);
+    M5StackChan.refreshRgb();
+}
+
+// HSVの色相を回して虹色にする
+void rainbowLeds(uint16_t shift)
+{
+    for (int i = 0; i < 12; i++) {
+        float h = fmodf(i * 30 + shift, 360.0f) / 60.0f;
+        int k = (int)h;
+        float f = h - k;
+        uint8_t v = 168, q = v * (1 - f), t = v * f;
+        uint8_t r[] = {v, q, 0, 0, t, v}, g[] = {t, v, v, q, 0, 0}, b[] = {0, 0, t, v, v, q};
+        M5StackChan.setRgbColor(i, r[k % 6], g[k % 6], b[k % 6]);
+    }
+    M5StackChan.refreshRgb();
+}
+
+// テンション高めの挨拶: 虹色に光りながら弾んで、早口で「ようこそ！！」
 void greet()
 {
     avatar.setExpression(Expression::Happy);
+    uint32_t start = millis();
 
-    // うなずく
-    M5StackChan.Motion.movePitch(kPitchCenter + 200, 600);
-    delay(400);
-    M5StackChan.Motion.movePitch(kPitchCenter - 100, 600);
-    delay(400);
-    M5StackChan.Motion.movePitch(kPitchCenter, 600);
+    // 弾むように2回うなずく
+    for (int i = 0; i < 2; i++) {
+        M5StackChan.Motion.movePitch(kPitchCenter + 250, 450);
+        for (uint32_t t = millis() + 450; millis() < t; delay(20)) rainbowLeds((millis() - start) / 2);
+        M5StackChan.Motion.movePitch(kPitchCenter - 50, 450);
+        for (uint32_t t = millis() + 450; millis() < t; delay(20)) rainbowLeds((millis() - start) / 2);
+    }
+    M5StackChan.Motion.movePitch(kPitchCenter + 150, 400);
 
-    speak(voice_hello, voice_hello_len, "こんにちは！");
+    // 虹色に光りながら、口パクで喋る
+    avatar.setSpeechText("みなさん、DevelopersIOへようこそ！！");
+    M5.Speaker.playWav(voice_welcome, voice_welcome_len);
+    while (M5.Speaker.isPlaying()) {
+        rainbowLeds((millis() - start) / 2);
+        avatar.setMouthOpenRatio((millis() / 100) % 2 ? 0.9f : 0.1f);
+        delay(30);
+    }
+    avatar.setMouthOpenRatio(0);
 
-    // 左右を見回す
-    M5StackChan.Motion.moveYaw(300, 400);
+    // 喜んで首を左右に振る
+    for (int i = 0; i < 2; i++) {
+        M5StackChan.Motion.moveYaw(300, 450);
+        for (uint32_t t = millis() + 600; millis() < t; delay(20)) rainbowLeds((millis() - start) / 2);
+        M5StackChan.Motion.moveYaw(-300, 450);
+        for (uint32_t t = millis() + 600; millis() < t; delay(20)) rainbowLeds((millis() - start) / 2);
+    }
+    M5StackChan.Motion.move(0, kPitchCenter, 400);
     delay(700);
-    M5StackChan.Motion.moveYaw(-300, 400);
-    delay(900);
-    M5StackChan.Motion.moveYaw(0, 400);
-    delay(500);
-
-    avatar.setExpression(Expression::Neutral);
+    avatar.setSpeechText("");
+    setLeds(0, 0, 0);
 }
 
 void setup()
