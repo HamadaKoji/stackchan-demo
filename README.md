@@ -31,6 +31,20 @@ arduino-cli lib install M5StackChan
 - 自作ファームを書き込むと工場ファームは上書きされる。戻すときはM5Burnerで公式StackChanファームを書き戻す
 - APIキー等の秘密情報はコミットしない（`secrets.h` / `.env` はgitignore済み）
 
+## スケッチの切り替え
+
+`sketches/` に3つのスケッチがある。ブランチは切り替えず、書き込むスケッチを選ぶだけ。
+
+| スケッチ | 中身 |
+|---|---|
+| `stackchan_base` | デモの起点（頭をタップすると挨拶）。ライブデモではこれを変更する |
+| `stackchan_web` | 活用デモ: curlで動かす（Wi-Fi） |
+| `stackchan_stars` | 活用デモ: GitHubのスターで喜ぶ（Wi-Fi） |
+
+```bash
+tools/flash.sh stackchan_web     # ビルドして書き込む（ポートは自動で探す。指定するなら第2引数）
+```
+
 ## リハーサル
 
 試走のたびに起点へ戻す（作業ツリーの変更は破棄される）:

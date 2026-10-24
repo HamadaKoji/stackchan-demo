@@ -15,6 +15,7 @@
 - 書き込みに失敗したら、RSTボタン約2秒長押し（緑LED点灯）でダウンロードモードに入るようユーザーに伝える
 - 会場で投影されるので、返答は短く。何を変えたかを1〜2文で言う
 - 秘密情報（APIキー等）は `secrets.h` に置き、コミットしない
+- **ライブデモで変更するのは `sketches/stackchan_base` だけ**。`stackchan_web`（curl版）・`stackchan_stars`（スター版）は活用パート用に完成済みなので触らない
 
 ## ビルド・書き込みコマンド
 
@@ -26,6 +27,7 @@ arduino-cli compile --fqbn m5stack:esp32:m5stack_cores3 sketches/<スケッチ�
 arduino-cli upload -p /dev/cu.usbmodem101 --fqbn m5stack:esp32:m5stack_cores3 sketches/<スケッチ名>
 ```
 
+- ビルドと書き込みを1回でやるなら `tools/flash.sh <スケッチ名>`（ポートは自動で探す）
 - スケッチは `sketches/<スケッチ名>/<スケッチ名>.ino` の形で置く（Arduinoの規約でフォルダ名とファイル名を揃える）
 - ライブラリ `M5StackChan` の公式サンプル: `~/Documents/Arduino/libraries/M5StackChan/examples/`（RGB_LED、Servo/BasicMovement・Dance・HomeCalibration、TouchSensor、IR、NFC、INA226）
 
