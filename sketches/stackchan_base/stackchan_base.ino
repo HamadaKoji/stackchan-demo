@@ -53,7 +53,7 @@ void greet()
 void setup()
 {
     M5StackChan.begin();
-    M5.Speaker.setVolume(200);
+    M5.Speaker.setVolume(255);  // 最大（0〜255）
 
     avatar.setSpeechFont(&fonts::efontJA_16);
     avatar.init();
